@@ -59,3 +59,18 @@ resource "aws_subnet" "database" {
     )
     availability_zone = local.AZ_names[count.index]
 }
+
+resource "aws_route_table" "public" {
+    vpc_id = aws_vpc.this.id
+    tags = local.rt_public_tags
+}
+
+resource "aws_route_table" "private" {
+    vpc_id = aws_vpc.this.id
+    tags = local.rt_private_tags
+}
+
+resource "aws_route_table" "private" {
+    vpc_id = aws_vpc.this.id
+    tags = local.rt_database_tags
+}
