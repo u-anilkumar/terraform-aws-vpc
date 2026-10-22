@@ -70,7 +70,7 @@ resource "aws_route_table" "private" {
     tags = local.rt_private_tags
 }
 
-resource "aws_route_table" "private" {
+resource "aws_route_table" "database" {
     vpc_id = aws_vpc.this.id
     tags = local.rt_database_tags
 }
