@@ -23,5 +23,5 @@ resource "aws_subnet" "public" {
         var.public_subnet_tags
     
     )
-    availability__zone = local.AZ_names[count.index]
+    availability_zone = local.AZ_names[count.index]
 }
