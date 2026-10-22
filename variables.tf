@@ -8,6 +8,7 @@ variable "environment" {
 
 variable "vpc_tags" {
     type = map
+    default={}
 }
 
 variable "vpc_cidr"{
