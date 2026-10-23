@@ -83,7 +83,7 @@ resource "aws_eip" "this" {
 resource "aws_nat_gateway" "this" {
     subnet_id = aws_subnet.public[0].id
     allocation_id = aws_eip.this.id
-    tags=local.final_nat_gateway_tags
+    tags=local.nat_gw_final_tags
     availability_mode = var.availability_mode_natgw
     depends_on = [aws_internet_gateway.this]
 } 
