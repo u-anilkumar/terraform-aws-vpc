@@ -76,6 +76,7 @@ variable "nat_tags" {
     default = {}
 }
 
+
 variable "availability_mode_natgw" {
     type = string
     default = "zonal"

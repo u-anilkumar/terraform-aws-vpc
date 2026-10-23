@@ -86,6 +86,7 @@ resource "aws_nat_gateway" "this" {
     tags=local.nat_gw_final_tags
     availability_mode = var.availability_mode_natgw
     depends_on = [aws_internet_gateway.this]
+    
 } 
 
 resource "aws_route" "public" {
