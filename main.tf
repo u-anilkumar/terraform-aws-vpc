@@ -81,7 +81,7 @@ resource "aws_eip" "this" {
 }
 
 resource "aws_nat_gateway" "this" {
-    subnet_id = aws_subnet.public.id
+    subnet_id = aws_subnet.public[0].id
     allocation_id = aws_eip.this.id
     tags=local.final_nat_gateway_tags
     availability_mode = var.availability_mode_natgw
@@ -111,6 +111,6 @@ resource "aws_route" "database" {
 
 resource "aws_route_table_association" "public" {
     count = length(var.public_subnet_cidr)
-    subnet_id = aws_subnet.public.id[count.index]
+    subnet_id = aws_subnet.public[count.index].id
     route_table_id = aws_route_table.public.id
 }
