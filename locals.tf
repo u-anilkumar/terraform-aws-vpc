@@ -20,7 +20,6 @@ locals{
         },
         var.igw_tags
     )
-
     AZ_names = slice(data.aws_availability_zones.available.names, 0, 2)
 
     rt_public_tags = merge(
@@ -30,7 +29,6 @@ locals{
             Name = "${var.project}-${var.environment}-public"
         },
         var.public_route_table_tags
-    
     )
 
     rt_private_tags = merge(
@@ -60,7 +58,7 @@ locals{
         },
         var.eip_tags
     )
-    
+
     nat_gw_final_tags = merge(
         local.common_tags,
         {
