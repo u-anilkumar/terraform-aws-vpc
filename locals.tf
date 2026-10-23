@@ -43,7 +43,7 @@ locals{
     
     )
 
-    rt_database_tags = merge(
+    rt_database_tags = merge( 
         local.common_tags,
         {
             #roboshop-dev-public
@@ -53,4 +53,20 @@ locals{
     
     )
     
+   eip_final_tags = merge( 
+        local.common_tags,
+        {
+            #roboshop-dev-public
+            Name = "${var.project}-${var.environment}-NAT"
+        },
+        var.eip_tags
+    
+    )
+    nat_gw_final_tags = merge(
+        local.common_tags,
+        {
+            Name = "${var.project}-${var.environment}"
+        },
+        var.nat_tags
+    )
 }

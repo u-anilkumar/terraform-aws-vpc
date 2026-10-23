@@ -74,3 +74,43 @@ resource "aws_route_table" "database" {
     vpc_id = aws_vpc.this.id
     tags = local.rt_database_tags
 }
+
+resource "aws_eip" "this" {
+    tags = local.eip_final_tags
+    depends_on = [aws_internet_gateway.this]
+}
+
+resource "aws_nat_gateway" "this" {
+    subnet_id = aws_subnet.public.id
+    allocation_id = aws_eip.this.id
+    tags=local.final_nat_gateway_tags
+    availability_mode = var.availability_mode_natgw
+    depends_on = [aws_internet_gateway.this]
+} 
+
+resource "aws_route" "public" {
+    destination_cidr_block = "0.0.0.0/0"
+    route_table_id = aws_route_table.public.id
+    gateway_id = aws_internet_gateway.this.id
+     
+}
+
+resource "aws_route" "private" {
+    destination_cidr_block = "0.0.0.0/0"
+    route_table_id = aws_route_table.private.id
+    nat_gateway_id = aws_nat_gateway.this.id
+     
+}
+
+resource "aws_route" "database" {
+    destination_cidr_block = "0.0.0.0/0"
+    route_table_id = aws_route_table.database.id
+    nat_gateway_id = aws_nat_gateway.this.id
+     
+}
+
+resource "aws_route_table_association" "public" {
+    count = length(var.public_subnet_cidr)
+    subnet_id = aws_subnet.public.id[count.index]
+    route_table_id = aws_route_table.public.id
+}
