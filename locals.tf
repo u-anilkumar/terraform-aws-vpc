@@ -50,7 +50,6 @@ locals{
             Name = "${var.project}-${var.environment}-database"
         },
         var.database_route_table_tags
-    
     )
     
    eip_final_tags = merge( 
@@ -60,8 +59,8 @@ locals{
             Name = "${var.project}-${var.environment}-NAT"
         },
         var.eip_tags
-    
     )
+    
     nat_gw_final_tags = merge(
         local.common_tags,
         {
